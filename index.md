@@ -7,7 +7,9 @@ Coding is for everyone! If you think it isn't for you, give it a reconsider, bec
 This workshop is sponsored by the [Scottish Graduate School of Social Science](https://www.sgsss.ac.uk/summer-school-2020/).
 
 
-# Introduction
+# Part 1: Setting up and reading in data
+
+## Introduction
 
 This is the most basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the PsyTeachR iniative at the University of Glasgow, and Saghir Bashir's work with the Women in Parliament dataset. Find lots and lots of useful resources here: https://gupsych.github.io/data_skills/01_intro.html and https://github.com/saghirb/WiP-tidyverse
 
@@ -34,6 +36,7 @@ A Chunk of code is defined as everything within the three ` marks, like this
 You'll learn much more about formatting Rmd files, 
 
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
@@ -50,6 +53,7 @@ set.seed(1234)
 
 ### Console and Variables
 RStudio generally has four panels: Current file, Console, Environment, and Viewer. You can think of the console as a place to try things out, and the file to write down ideas you want to stick around. Go to the console and type 
+
 ```{r}
 x <- 1 + 5
 ```
