@@ -1,3 +1,12 @@
+*Please install R in advance by following instructions for installing R and RStudio on your own machine: https://rstudio-education.github.io/hopr/starting.html*
+
+# Welcome
+
+Coding is for everyone! If you think it isn't for you, give it a reconsider, because I truly believe everyone can learn to code and be a data scientist! Coding skills provide tools to enhance communication and showcase your data and ideas to a wide range of audiences and disciplines in an accessable way - which is a plus for everyone! Showcasing your data in these new ways could help you look at your data from a different angle and lead to a deeper understanding of your findings. With the open science movement gaining traction in all disiplines, more data will become freely accessible, and learning data science and visualization skills will empower you to take advantage of that! R is incredibly useful (and cutting-edge) in all disiplines, and this workshop will help provide the basics of a solid, rigerous, and transparant workflow.
+
+This workshop is sponsored by the [Scottish Graduate School of Social Science](https://www.sgsss.ac.uk/training/spring-into-methods/)
+
+
 # Introduction
 
 This is the most basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the PsyTeachR iniative at the University of Glasgow, and Saghir Bashir's work with the Women in Parliament dataset. Find lots and lots of useful resources here: https://gupsych.github.io/data_skills/01_intro.html and https://github.com/saghirb/WiP-tidyverse
