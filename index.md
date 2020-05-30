@@ -37,17 +37,12 @@ You'll learn much more about formatting Rmd files,
 
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 
-```{r setup}
-
+```{r}
 library(tidyverse)
 
-# When we do things that require "random" or stochastic functions, we set the seed first for reproducibility. 
-# This way someone else can run our code and get the same result, even though
-# the function uses "randomness"
-
 set.seed(1234)
-
 ```
+When we do things that require "random" or stochastic functions, we set the seed first for reproducibility. This way someone else can run our code and get the same result, even though the function uses "randomness"
 
 ## Using the Console, Variables, and Data Types
 
