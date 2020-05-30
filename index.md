@@ -11,7 +11,7 @@ This workshop is sponsored by the [Scottish Graduate School of Social Science](h
 
 ## Introduction
 
-This is the most basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the PsyTeachR iniative at the University of Glasgow, and Saghir Bashir's work with the Women in Parliament dataset. Find lots and lots of useful resources here: https://gupsych.github.io/data_skills/01_intro.html and https://github.com/saghirb/WiP-tidyverse
+This is the most basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the [PsyTeachR](https://psyteachr.github.io/) and [Q-Step](https://www.gla.ac.uk/schools/socialpolitical/q-stepcentre/) iniatives at the University of Glasgow, and Saghir Bashir's work with the [Women in Parliament dataset](https://github.com/saghirb/WiP-tidyverse).
 
 Please take a look at these resources in your own time!
 
@@ -38,14 +38,11 @@ You'll learn much more about formatting Rmd files,
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 
 ```{r setup}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(tidytext)
-library(ggplot2)
-library(cowsay)
 
-# When we do things that require "random" or stochastic functions, we set the seed first for 
-# reproducibility. This way someone else can run our code and get the same result, even though
+library(tidyverse)
+
+# When we do things that require "random" or stochastic functions, we set the seed first for reproducibility. 
+# This way someone else can run our code and get the same result, even though
 # the function uses "randomness"
 
 set.seed(1234)
