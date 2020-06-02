@@ -1,4 +1,8 @@
-Please install R in advance by following instructions for [installing R and RStudio on your own machine](https://rstudio-education.github.io/hopr/starting.html)
+# Before We Begin
+
+1. Please install R in advance by following instructions for [installing R and RStudio on your own machine](https://rstudio-education.github.io/hopr/starting.html)
+
+2. The data needed for this workshop can be [downloaded here](https://social.sgsss.ac.uk/groups/a-visual-introduction-to-r/files/)
 
 # Welcome
 
@@ -38,6 +42,9 @@ You'll learn much more about formatting Rmd files,
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 
 ```{r}
+install.packages("tidyverse")
+install.packages("countrycode")
+library(countrycode)
 library(tidyverse)
 
 set.seed(1234)
@@ -102,11 +109,37 @@ function_name(argument1, argument2, ...)
 where the arguments are the *parameters* of the function -- the things the function needs to do its thing. 
 
 ### Loading Data
-We can also interact with files outside of our R script, like loading data. Such as the data that details the percentage of women in parliaments around the world [download here]
+We can also interact with files outside of our R script, like loading data. Such as the data that details the percentage of women in parliaments around the world which you downloaded earlier. 
 
 ```{r, echo=FALSE, message=FALSE}
-wip_data <- read_csv('WB-WiP.csv')
+wip <- read_csv(("WB-WiP.csv"), skip = 4) 
 ```
 Now when we click on `wip_data` in our environment section, we can see the data we've imported! And as we'll go into in the next section, there is a problem with this data just now!
 
 # Part 2: Exploring Data with Tidyverse
+
+When we read our data in at the end of Part 1, this error message appeared: 
+
+```{r}
+# Warning: Missing column names filled in: 
+# 'X64' [64]
+```
+
+We have suppressed some of the messages but left the one about variable X64 (we will come back to it below).
+
+Exercise:
+
+Check what you have read by typing in the Console window:
+```{r}
+wip
+```
+
+What do you see?
+
+Now type:
+
+```{r}
+class(wip)
+
+glimpse(wip)
+```
