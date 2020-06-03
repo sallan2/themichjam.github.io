@@ -1,4 +1,4 @@
-# Before We Begin
+**Before We Begin**
 
 1. Please install R in advance by following instructions for [installing R and RStudio on your own machine](https://rstudio-education.github.io/hopr/starting.html)
 
@@ -15,18 +15,17 @@ This workshop is sponsored by the [Scottish Graduate School of Social Science](h
 
 ## Introduction
 
-This is the most basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the [PsyTeachR](https://psyteachr.github.io/) and [Q-Step](https://www.gla.ac.uk/schools/socialpolitical/q-stepcentre/) iniatives at the University of Glasgow, and Saghir Bashir's work with the [Women in Parliament dataset](https://github.com/saghirb/WiP-tidyverse).
+This is a basic introduction to R that his meant to be a jumping off point in your journey! This is only a short workshop after all! Some of this work has been influenced by the [PsyTeachR](https://psyteachr.github.io/) and [Q-Step](https://www.gla.ac.uk/schools/socialpolitical/q-stepcentre/) iniatives at the University of Glasgow, and Saghir Bashir's work with the [Women in Parliament dataset](https://github.com/saghirb/WiP-tidyverse).
 
-Please take a look at these resources in your own time!
 
 ## Setup
 
-First things first, we have to set our *Working Directory* to the place our file is. In RStudio we do this by hitting 'Session > Set Working Directory > Source File Location'. This lets us interact with other files that are outside of our current script (and keeps our project nice and tidy).
+First things first, we have to set our **Working Directory** to the place our file is. In RStudio we do this by hitting 'Session > Set Working Directory > Source File Location'. This lets us interact with other files that are outside of our current script (and keeps our project nice and tidy).
 
 In RStudio in Rmd (spoken: "R Markdown") files, you can run either one section of code by hitting 'Run > Run current chunk' or you can run every section of code by hitting 'Run > Run all'.
 
-A Chunk of code is defined as everything within the three ` marks, like this
-    ```{r}`r ''`
+A Chunk of code is defined as everything within the three backslash marks, like this:
+    ```{r}
     # The ``` means 'format this section in a certain way'
     # the {r} means 'interpret this section as R code, not as plain text'
     # the second ``` means the section is over
@@ -34,16 +33,19 @@ A Chunk of code is defined as everything within the three ` marks, like this
     # Because we're in an Rmd file and we're in an {r} chunk, all writing is going to 
     # go in comments. Any line that starts with a # is a comment. 
     # In RStudio, these are conveniently green-ed out
-    
     ```
 
-You'll learn much more about formatting Rmd files, 
+You'll learn much more about formatting Rmd files once you start using R more. 
+
+### Libraries 
 
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 
 ```{r}
 install.packages("tidyverse")
 install.packages("countrycode")
+install.packages("cowsay)
+library(cowsay)
 library(countrycode)
 library(tidyverse)
 
@@ -54,12 +56,13 @@ When we do things that require "random" or stochastic functions, we set the seed
 ## Using the Console, Variables, and Data Types
 
 ### Console and Variables
+
 RStudio generally has four panels: Current file, Console, Environment, and Viewer. You can think of the console as a place to try things out, and the file to write down ideas you want to stick around. Go to the console and type 
 
 ```{r}
 x <- 1 + 5
 ```
-Notice how now the environment shows we have a Value `x` that is 6. Congrats, we just created our first  *variable*! 
+Notice how now the environment shows we have a Value `x` that is 6. Congrats, we just created our first  **variable**! 
 In the above, we would say "the variable x is assigned to 1 + 5" or "x gets 1 + 5"
 
 We can do this within the script by simply having a chunk like so: 
@@ -71,7 +74,7 @@ And running the chunk. Notice we now have `y` up there hanging out with `x` too.
 
 ### Data Types
 
-Both `x` and `y` in this case are numbers. We can see this by typing 
+Both `x` and `y` in this case are numbers. We can see this by typing:
 ```{r}
 typeof(x)
 ```
@@ -114,12 +117,11 @@ We can also interact with files outside of our R script, like loading data. Such
 ```{r, echo=FALSE, message=FALSE}
 wip <- read_csv(("WB-WiP.csv"), skip = 4) 
 ```
-Now when we click on `wip_data` in our environment section, we can see the data we've imported! And as we'll go into in the next section, there is a problem with this data just now!
+Now when we click on `wip` in our environment section, we can see the data we've imported! And as we'll go into in the next section, there is a problem with this data just now!
 
 # Part 2: Exploring Data with Tidyverse
 
 When we read our data in at the end of Part 1, this error message appeared: 
-
 ```{r}
 # Warning: Missing column names filled in: 
 # 'X64' [64]
@@ -127,7 +129,7 @@ When we read our data in at the end of Part 1, this error message appeared:
 
 We have suppressed some of the messages but left the one about variable X64 (we will come back to it below).
 
-Exercise:
+**Exercise:**
 
 Check what you have read by typing in the Console window:
 ```{r}
@@ -167,7 +169,7 @@ These three columns will contain the same information as the wip dataset but in 
 
 ### Superﬂuous Columns
 
-We will start by removing columns 'X65', 'Indicator.Name' and 'Indicator.Code'. There are years without any data but they will be removed automatically later (when restructuring from “wide” to “long” format). Column X65 is created automatically due to an extra comma at the end of the column names (ﬁfth) line of WB-WiP.csv: 
+We will start by removing columns 'X64', 'Indicator.Name' and 'Indicator.Code'. There are years without any data but they will be removed automatically later (when restructuring from “wide” to “long” format). Column X65 is created automatically due to an extra comma at the end of the column names (ﬁfth) line of WB-WiP.csv: 
 
 ... ,"2016","2017","2018","2019",
 
@@ -219,7 +221,7 @@ The objective is to look at the geographical and time trends in the data. We wil
 4. How do continents compare?
 5. What are the global trends over time?
 
-Exercise - Without Programming.
+**Exercise - Without Programming.**
 
 1. Which country do you think has the highest percentage of women in parliament?
 2. In each continent (i.e. Africa, Americas, Asia, Europe and Oceania), which country has the highest percentage of women in parliament?
@@ -246,9 +248,9 @@ WP %>% filter(Country=="Portugal") %>%
   ylab("% Women in Parliament")
 ```
 
-Interpretation. In 1990 Portugal had 7.6% women in parliament (i.e. 12.2 men for each woman), which increased to 34.8% (i.e. 1.87 men for each woman) in 2018. This still falls short of 50% (i.e. point of gender parity in parliament).
+**Interpretation:** In 1990 Portugal had 7.6% women in parliament (i.e. 12.2 men for each woman), which increased to 34.8% (i.e. 1.87 men for each woman) in 2018. This still falls short of 50% (i.e. point of gender parity in parliament).
 
-Exercise.For your chosen country look at the time trend data and the plot. What is your interpretation? How does it compare to Portugal?
+**Exercise:** For your chosen country look at the time trend data and the plot. What is your interpretation? How does it compare to Portugal?
 
 Portugal versus European Union(EU) countries. We selected six EU countries (due to space limitations) for comparison. It would be better to compare all EU and/or all European countries. 
 
@@ -266,15 +268,15 @@ WP %>%
   ylab("% Women in Parliament")
 ```
 
-Interpretation. Since 2007 Portugal ha shad more women in parliament than the European Union average. Hungary and Romania both had a higher percentage of women in parliament in 1990 (around the end of the Col dWar) than they have had since. The key point to note is that none of these countries reaches equality between males and females in parliament, although Sweden and Finland come closest
+**Interpretation:** Since 2007 Portugal ha shad more women in parliament than the European Union average. Hungary and Romania both had a higher percentage of women in parliament in 1990 (around the end of the Col dWar) than they have had since. The key point to note is that none of these countries reaches equality between males and females in parliament, although Sweden and Finland come closest
 
-A couple of points to note.
+**A couple of points to note.**
 
 “Germany”. In October 1990, the process of “German reuniﬁcation” lead to the creation of Germany, which united the former “German Democratic Republic”(East Germany) and the“Federal Republic of Germany” (West Germany). Therefore, since reuniﬁcation, the data is presented for the reuniﬁed “Germany” only. Careful thought should be given to handling, analysing and interpreting any pre-reuniﬁcation data (if available).
 
 “European Union”. The “European Union” has changed over time (unlike the “continent of Europe”). It started in the 1950s as a block of six European countries (known as the “European Community”) and has expanded over the years to 28 countries (with the United Kingdom about to depart). This raises the question of how the European Union average is calculated. For a given year, is it calculated based on the actual member states in that year or on all of the current member states?
 
-Exercises:
+**Exercise:**
 
 1. Compare the country of your choice to four or ﬁve other countries by plotting a line graph similar to the one above.
 
@@ -295,13 +297,12 @@ WP %>%
   filter(row_number()==1)
 ```
 
-Merging continent. The variable Country in the WP dataset is a mix of countries and regions (e.g. “European Union”, “South Asia”and“World”). To present the highest percentages grouped by continent we need to add it. Luckily, given the large number of R packages available, we can merge the “continent” from the “codelist” dataset in the “countrycode” package
+**Merging continent.** The variable Country in the WP dataset is a mix of countries and regions (e.g. “European Union”, “South Asia”and“World”). To present the highest percentages grouped by continent we need to add it. Luckily, given the large number of R packages available, we can merge the “continent” from the “codelist” dataset in the “countrycode” package
 
 ```{r}
 cl <- codelist %>% 
   select(continent, wb) %>% 
   rename(Code = wb, Continent = continent) cWP <- WP %>% left_join(cl, by = "Code")
-
 ```
 
 Highest percentages by year and continent. Which countries have the highest percentages in 1990 and 2018? 
@@ -315,7 +316,7 @@ cWP %>%
   select(Continent, Country, Year, pctWiP, Ratio) 
 ```
 
-Decline in percentage. Which countries have had a decline in percentage since their ﬁrst measurement (not always 1990)? 
+**Decline in percentage.** Which countries have had a decline in percentage since their ﬁrst measurement (not always 1990)? 
 
 ```{r}
 dWP <- cWP %>% 
@@ -327,7 +328,7 @@ dWP <- cWP %>%
   select(Country, pctDiff) 
 ```
 
-Visualisation. We will plot the trend lines for countries with at least a 5% decline. Note that the “5%” is arbitrarily selected. 
+**Visualisation.** We will plot the trend lines for countries with at least a 5% decline. Note that the “5%” is arbitrarily selected. 
 
 ```{r}
 # Select the countries to plot 
@@ -342,10 +343,9 @@ WP %>%
   ggtitle("Women in Parliament: Decline >=5%") + ylab("% Women in Parliament")
 ```
 
+**Interpretation.** There is a consistent decline between 1990 and 1997 that should be investigated in collaboration with a subject matter expert to understand the potential causes.
 
-Interpretation. There is a consistent decline between 1990 and 1997 that should be investigated in collaboration with a subject matter expert to understand the potential causes.
-
-Ranked status.Another way to look at the data is to look at the rankingofcountries, whichcouldbedoneatagloballevelorby continent. Nonetheless, the results should be interpreted with caution and an understanding of the actual percentages. For example,ifmostcountrieswerearoundthe50%mark,rankings could be misleading and subject to random ﬂuctuations.
+**Ranked status.** Another way to look at the data is to look at the rankingofcountries, whichcouldbedoneatagloballevelorby continent. Nonetheless, the results should be interpreted with caution and an understanding of the actual percentages. For example, if most countries were around the 50% mark,rankings could be misleading and subject to random ﬂuctuations.
 
 Global ranks by year.We will rank the countries by year based on the percentage of women in parliaments. The countries with the highest percentage will be ranked ﬁrst and the lowest last. A total for the number of countries with data is included as it varies by year. 
 
@@ -364,8 +364,9 @@ cWPrankG %>%
   select(Country, Year, pctWiP, Ratio, RankG, TotalG) %>% arrange(Year)
 ```
 
-Interpretation. Portugal has generally been ranked in the ﬁrst quartile (25%) of countries in the world, with the ﬂuctuations of its ranking most likely due to random variation.
-Exercise. For your chosen country, interpret its ranking over the years. How does it compare to Portugal?
+**Interpretation.** Portugal has generally been ranked in the ﬁrst quartile (25%) of countries in the world, with the ﬂuctuations of its ranking most likely due to random variation.
+
+**Exercise.** For your chosen country, interpret its ranking over the years. How does it compare to Portugal?
 Continent ranks by year.We will rank the countries by year within a continent based on the percentage of women in parliaments. The countries with th ehighest percent age will be ranked ﬁrst and the lowest last. A total for the number of countries with data, within each continent, is included as it varies by year.
 
 ```{r}
@@ -384,8 +385,7 @@ cWPx %>%
   select(Country, Year, pctWiP, Ratio, RankC, TotalC) %>% arrange(Year)
 ```
 
-
-Plot of Portugal’s ranking in Europe.Below we reproduce the percentage plot to show how Portugal ranks in relation to six other European countries. Note that the highest percentage is ranked ﬁrst and the lowest last.
+**Plot of Portugal’s ranking in Europe.** Below we reproduce the percentage plot to show how Portugal ranks in relation to six other European countries. Note that the highest percentage is ranked ﬁrst and the lowest last.
 
 ```{r}
 cWPx %>% 
@@ -396,9 +396,9 @@ cWPx %>%
   ggtitle("Women in Parliament: Ranked") + ylab("Rank in Europe")
 ```
 
-Interpretation. A total of 28 European countries had data in 1990, 39 in 1997 and 43 in 2018. Within Europe, Portugal was typically ranked in the second quartile (25-50%) with the ﬂuctuations of its ranking most likely due to random variation.
+**Interpretation.** A total of 28 European countries had data in 1990, 39 in 1997 and 43 in 2018. Within Europe, Portugal was typically ranked in the second quartile (25-50%) with the ﬂuctuations of its ranking most likely due to random variation.
 
-Exercise. How does your chosen country rank within its continent?
+**Exercise.** How does your chosen country rank within its continent?
 
 Highest rank by year and continent.Which countries have the highest rank in 1990 and 2018? The answer will coincide with the highest percentages (see above).
 
@@ -409,7 +409,7 @@ cWPx %>%
   select(Continent, Year, Country, pctWiP, Ratio) 
 ```
 
-Overallpicture.Whatarethetrendsglobally? Therearevarious regions deﬁned in the World Bank data. We can plot them and highlight the world “average”.
+**Overall picture.** What are the trends globally? There are various regions deﬁned in the World Bank data. We can plot them and highlight the world “average”.
 
 ```{r}
 cWP %>% 
@@ -422,9 +422,9 @@ cWP %>%
   ggtitle("Women in Parliament: Global Trends") + ylab("% Women in Parliament")
 ```
 
-Interpretation. The grey lines show that regardless of how we deﬁne region the general trends are upwards. The “World” percentage(blackline)increasedbetween1997and2018. In2018, women in parliament represented 24% (i.e. a ratio of 3.17 men to each woman), which is still less than half the level before gender parity can be claimed.
+**Interpretation.** The grey lines show that regardless of how we deﬁne region the general trends are upwards. The “World” percentage (blackline) increased between 1997 and 2018. In 2018, women in parliament represented 24% (i.e. a ratio of 3.17 men to each woman), which is still less than half the level before gender parity can be claimed.
 
 ## Conclusion 
 
-This guide presented an analysis of the percentage of women in parliament as a real-life case study for some of the tidyverse package. Although the format limited what could be presented, we can conclude that the percentage of women in parliament is increasing but that gender parity in parliaments is still far-off. There is a lot more that can be said and discussed about the limitations, interpretation and potential impact of this data whichtheWorldBankhasnicelysummarised.7 Youarestrongly encouraged to read their discussion for a more complete understanding.
+This guide presented an analysis of the percentage of women in parliament as a real-life case study for some of the tidyverse package. Although the format limited what could be presented, we can conclude that the percentage of women in parliament is increasing but that gender parity in parliaments is still far-off. There is a lot more that can be said and discussed about the limitations, interpretation and potential impact of this data which the World Bank has nicely summarised. (You are strongly encouraged to read their discussion for a more complete understanding).
 
