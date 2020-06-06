@@ -118,7 +118,7 @@ where the arguments are the *parameters* of the function -- the things the funct
 ### Loading Data
 We can also interact with files outside of our R script, like loading data. Such as the data that details the percentage of women in parliaments around the world which you downloaded earlier. 
 
-```{r, echo=FALSE, message=FALSE}
+```{r}
 wip <- read_csv(("WB-WiP.csv"), skip = 4) 
 ```
 Now when we click on `wip` in our environment section, we can see the data we've imported! And as we'll go into in the next section, there is a problem with this data just now!
