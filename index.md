@@ -41,15 +41,19 @@ You'll learn much more about formatting Rmd files once you start using R more.
 
 First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 
-```{r}
-install.packages("tidyverse")
-install.packages("countrycode")
-install.packages("cowsay)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(gghighlight)
 library(cowsay)
 library(countrycode)
-library(tidyverse)
+# When we do things that require "random" or stochastic functions, we set the seed first for 
+# reproducibility. This way someone else can run our code and get the same result, even though
+# the function uses "randomness"
 
 set.seed(1234)
+
 ```
 When we do things that require "random" or stochastic functions, we set the seed first for reproducibility. This way someone else can run our code and get the same result, even though the function uses "randomness"
 
@@ -156,9 +160,11 @@ tail(names(wip))
 By using the make.names() function we don’t need to use back ticks (`) around the column names (e.g. `col name`). 
 
 ```{r}
+
 names(wip) <- make.names(names(wip)) 
 head(names(wip))
 tail(names(wip))
+
 ```
 
 ## Data Wrangling 
@@ -189,14 +195,22 @@ Exercise. Conﬁrm that both Indicator.Name and Indicator.Code have the same val
 Removing columns.The indicator and X64 columns can be removed. We will also rename “Country.Name” as “Country” and “Country.Code” as “Code”. 
 
 ```{r}
-wip2 <- wip %>% select(-Indicator.Name, -Indicator.Code, -X64) %>% rename(Country=Country.Name, Code=Country.Code) 
+
+wip2 <- wip %>% select(-Indicator.Name, 
+                       -Indicator.Code, 
+                       -X64) %>% 
+  rename(Country=Country.Name, Code=Country.Code) 
+
 head(names(wip2)) 
+
 tail(names(wip2))
+
 ```
 
 Reshape to long format. We want to transform the data so that for each country the year (column) data becomes a row. At the same time we will remove the missing data (with the na.rm option). We will also create a numeric Year variable and a Ratio of men to women in parliament. 
 
 ```{r}
+
 WP <- wip2 %>% 
   pivot_longer(starts_with("X"), 
                names_to = "YearC", 
@@ -209,7 +223,7 @@ WP <- wip2 %>%
 
 # Look at the contents of WP glimpse(WP) 
 glimpse(WP)
-```
+
 
 ## Questions
 
@@ -234,18 +248,22 @@ Select a country.This guide explores how Portugal performs over time and compare
 
 Time trends for Portugal. First look at the raw data. 
 ```{r}
+
 # Reset tibble print option to see more rows
 options(tibble.print_max = 25) 
-WP %>% filter(Country=="Portugal") 
+WP %>% filter(Country=="Portugal")
+
 ```
 
 Visualisation. It is easier to ﬁnd trends within a plot.
 ```{r}
+
 WP %>% filter(Country=="Portugal") %>% 
   ggplot(aes(Year, pctWiP)) + 
   geom_line() + geom_point() + 
   scale_y_continuous(limits=c(0, 50)) + 
   ylab("% Women in Parliament")
+
 ```
 
 **Interpretation:** In 1990 Portugal had 7.6% women in parliament (i.e. 12.2 men for each woman), which increased to 34.8% (i.e. 1.87 men for each woman) in 2018. This still falls short of 50% (i.e. point of gender parity in parliament).
@@ -266,6 +284,7 @@ WP %>%
   scale_y_continuous(limits=c(0, 50), breaks=seq(0, 50, by=10)) +
   ggtitle("Women in Parliament: EU Countries") + 
   ylab("% Women in Parliament")
+
 ```
 
 **Interpretation:** Since 2007 Portugal ha shad more women in parliament than the European Union average. Hungary and Romania both had a higher percentage of women in parliament in 1990 (around the end of the Col dWar) than they have had since. The key point to note is that none of these countries reaches equality between males and females in parliament, although Sweden and Finland come closest
@@ -300,9 +319,11 @@ WP %>%
 **Merging continent.** The variable Country in the WP dataset is a mix of countries and regions (e.g. “European Union”, “South Asia”and“World”). To present the highest percentages grouped by continent we need to add it. Luckily, given the large number of R packages available, we can merge the “continent” from the “codelist” dataset in the “countrycode” package
 
 ```{r}
-cl <- codelist %>% 
-  select(continent, wb) %>% 
-  rename(Code = wb, Continent = continent) cWP <- WP %>% left_join(cl, by = "Code")
+cl <- codelist %>% select(continent, wb) %>% 
+  rename(Code = wb, Continent = continent) 
+
+cWP <- WP %>% left_join(cl, by = "Code")
+
 ```
 
 Highest percentages by year and continent. Which countries have the highest percentages in 1990 and 2018? 
@@ -322,10 +343,13 @@ cWP %>%
 dWP <- cWP %>% 
   group_by(Country) %>% 
   arrange(Country, Year) %>% 
-  filter(row_number()==1 | row_number()==n()) %>%mutate(pctDiff = pctWiP lag(pctWiP, order_by=Country)) %>% 
+  filter(row_number()==1 | row_number()==n()) %>%
+  mutate(pctDiff = pctWiP - 
+           lag(pctWiP, order_by=Country)) %>% 
   filter(pctDiff<0 & !is.na(Continent)) %>% 
-  arrange(pctDiff) dWP %>% 
-  select(Country, pctDiff) 
+  arrange(pctDiff) 
+dWP %>% select(Country, pctDiff)
+
 ```
 
 **Visualisation.** We will plot the trend lines for countries with at least a 5% decline. Note that the “5%” is arbitrarily selected. 
@@ -341,6 +365,7 @@ WP %>%
   geom_point() + scale_x_continuous(breaks=seq(1990, 2020, 5)) +
   scale_y_continuous(limits=c(0, 40), breaks=seq(0, 40, by=10)) +
   ggtitle("Women in Parliament: Decline >=5%") + ylab("% Women in Parliament")
+
 ```
 
 **Interpretation.** There is a consistent decline between 1990 and 1997 that should be investigated in collaboration with a subject matter expert to understand the potential causes.
